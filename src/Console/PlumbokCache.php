@@ -27,7 +27,10 @@ final class PlumbokCache
         'src/Controller/Dto'
     ];
 
-    public static function refreshCache()
+    /**
+     * @throws \Exception
+     */
+    public static function refreshCache(): void
     {
         $application = new Application();
         $application->setAutoExit(false);
