@@ -15,8 +15,8 @@ use Plumbok\Annotation\Setter;
  * Class TransactionEntity
  *
  * @package App\Entity
- * @ORM\Entity ()
- * @ORM\Table (name="transaction")
+ * @ORM\Entity()
+ * @ORM\Table(name="transaction")
  * @method string getId()
  * @method void setId(string $id)
  */

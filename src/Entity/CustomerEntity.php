@@ -10,8 +10,8 @@ use Plumbok\Annotation\Setter;
  * Class User
  *
  * @package App\Entity
- * @ORM\Entity (repositoryClass="App\Repository\CustomerRepository")
- * @ORM\Table (name="customer")
+ * @ORM\Entity(repositoryClass="App\Repository\CustomerRepository")
+ * @ORM\Table(name="customer")
  * @method string getId()
  * @method void setId(string $id)
  */

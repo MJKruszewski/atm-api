@@ -34,12 +34,17 @@ final class PlumbokCache
         $application->add(new CompileCommand());
         $kernel = new Kernel('dev', false);
         if (is_dir($kernel->getPlumbokCacheDir())) {
-            rmdir($kernel->getPlumbokCacheDir());
+            $files = glob($kernel->getPlumbokCacheDir() . '/*');
+            foreach ($files as $file) {
+                unlink($file);
+            }
         }
         if (!is_dir($kernel->getCacheDir())) {
             mkdir($kernel->getCacheDir());
         }
-        mkdir($kernel->getPlumbokCacheDir());
+        if (!is_dir($kernel->getPlumbokCacheDir())) {
+            mkdir($kernel->getPlumbokCacheDir());
+        }
         foreach (self::PLUMBOK_SOURCES as $source) {
             $srcPath = $kernel->getProjectDir() . '/' . $source;
             $application->run(new StringInput("compile {$srcPath} {$kernel->getPlumbokCacheDir()}"), new ConsoleOutput());
