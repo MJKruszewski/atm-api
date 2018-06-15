@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Console\PlumbokCache;
 use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\Config\Resource\FileResource;
@@ -14,6 +15,10 @@ class Kernel extends BaseKernel
     use MicroKernelTrait;
 
     const CONFIG_EXTS = '.{php,xml,yaml,yml}';
+
+    public function getPlumbokCacheDir() {
+        return $this->getProjectDir().'/var/cache/plumbok';
+    }
 
     public function getCacheDir()
     {
@@ -32,6 +37,14 @@ class Kernel extends BaseKernel
             if (isset($envs['all']) || isset($envs[$this->environment])) {
                 yield new $class();
             }
+        }
+    }
+
+    public function registerPlumbok()
+    {
+        $fileCache = new \Plumbok\Cache\FileCache($this->getPlumbokCacheDir());
+        foreach (PlumbokCache::PLUMBOK_NAMESPACES as $namespace) {
+            \Plumbok\Autoload::register($namespace, $fileCache);
         }
     }
 

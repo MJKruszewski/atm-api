@@ -7,6 +7,8 @@
         "ext-iconv": "*",
         "friendsofsymfony/rest-bundle": "^2.3",
         "jms/serializer-bundle": "^2.4",
+        "plumbok/plumbok": "^0.10.1",
+        "sensio/framework-extra-bundle": "^5.1",
         "symfony/console": "^4.1",
         "symfony/flex": "^1.0",
         "symfony/framework-bundle": "^4.1",
@@ -46,10 +48,12 @@
             "assets:install %PUBLIC_DIR%": "symfony-cmd"
         },
         "post-install-cmd": [
-            "@auto-scripts"
+            "@auto-scripts",
+            "App\\Console\\PlumbokCache::refreshCache"
         ],
         "post-update-cmd": [
-            "@auto-scripts"
+            "@auto-scripts",
+            "App\\Console\\PlumbokCache::refreshCache"
         ]
     },
     "conflict": {
