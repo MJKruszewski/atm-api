@@ -33,3 +33,9 @@ services:
     App\Repository\TransactionRepository:
         factory: 'doctrine.orm.entity_manager:getRepository'
         arguments: ['App\Entity\TransactionEntity']
+
+    dto_converter:
+        class: App\Converter\DtoConverter
+        arguments: ['@monolog.logger']
+        tags:
+            - { name: request.param_converter, converter: dto_converter }
