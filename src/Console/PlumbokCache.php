@@ -7,8 +7,6 @@ use Plumbok\Command\CompileCommand;
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Input\StringInput;
 use Symfony\Component\Console\Output\ConsoleOutput;
-use Symfony\Component\Console\Output\NullOutput;
-use Symfony\Component\Console\Style\SymfonyStyle;
 
 /**
  * Class PlumbokCache
@@ -19,11 +17,13 @@ final class PlumbokCache
 
     const PLUMBOK_NAMESPACES = [
         'App\Entity',
+        'App\Exceptions',
         'App\Controller\Dto'
     ];
 
     private const PLUMBOK_SOURCES = [
         'src/Entity',
+        'src/Exceptions',
         'src/Controller/Dto'
     ];
 
