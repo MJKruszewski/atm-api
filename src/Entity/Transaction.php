@@ -44,6 +44,14 @@ class Transaction
     private $atmCard;
 
     /**
+     * @var Account
+     *
+     * @Getter() @Setter()
+     * @ORM\ManyToOne(targetEntity="Account")
+     */
+    private $account;
+
+    /**
      * @var float
      *
      * @Getter() @Setter()
