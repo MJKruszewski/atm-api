@@ -11,6 +11,8 @@ use Plumbok\Annotation\Setter;
  *
  * @method string getUserId()
  * @method void setUserId(string $userId)
+ * @method string getCardNumber()
+ * @method void setCardNumber(string $cardNumber)
  * @method float getAmount()
  * @method void setAmount(float $amount)
  */
@@ -23,6 +25,14 @@ final class WithdrawDto
      * @Setter()
      */
     private $userId;
+
+    /**
+     * @var string
+     *
+     * @Getter()
+     * @Setter()
+     */
+    private $cardNumber;
 
     /**
      * @var float
