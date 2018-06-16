@@ -35,17 +35,16 @@ final class DtoConverter implements ParamConverterInterface
      */
     public function apply(Request $request, ParamConverter $configuration)
     {
-        $dto = null;
         $class = $configuration->getClass();
 
         try {
-            $dto = new $class();
-            $reflection = new ReflectionClass($dto);
+            $dto = class_exists($class) ? new $class() : null;
 
             if ($dto === null) {
                 return $configuration->isOptional() || !empty($dto);
             }
 
+            $reflection = new ReflectionClass($dto);
             foreach ($reflection->getProperties() as $property) {
                 $value = $request->get($property->getName());
                 $method = 'set' . ucfirst($property->getName());
@@ -54,7 +53,8 @@ final class DtoConverter implements ParamConverterInterface
                     continue;
                 }
 
-                $type = array_shift($reflection->getMethod($method)->getParameters())->getType()->getName();
+                $parameters = $reflection->getMethod($method)->getParameters();
+                $type = array_shift($parameters)->getType()->getName();
                 $typeSet = settype($value, $type);
 
                 if (!$typeSet) {
@@ -62,7 +62,10 @@ final class DtoConverter implements ParamConverterInterface
                 }
 
                 $dto->{$method}($value);
-                $request->attributes->remove($property->getName());
+            }
+
+            foreach ($request->attributes as $key => $attribute) {
+                $request->attributes->remove($key);
             }
 
             $request->attributes->set($configuration->getName(), $dto);

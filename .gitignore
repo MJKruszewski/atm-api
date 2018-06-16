@@ -1,4 +1,3 @@
-
 ###> symfony/framework-bundle ###
 /.env
 /public/bundles/
@@ -9,3 +8,7 @@
 .idea
 *.iml
 *.log
+###> symfony/phpunit-bridge ###
+.phpunit
+/phpunit.xml
+###< symfony/phpunit-bridge ###
