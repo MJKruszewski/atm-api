@@ -16,6 +16,8 @@ use Plumbok\Annotation\Setter;
  * @method void setId(string $id)
  * @method \App\Entity\AtmCard getAtmCard()
  * @method void setAtmCard(\App\Entity\AtmCard $atmCard)
+ * @method \App\Entity\Account getAccount()
+ * @method void setAccount(\App\Entity\Account $account)
  * @method float getAmount()
  * @method void setAmount(float $amount)
  * @method \DateTime getDateAdd()
