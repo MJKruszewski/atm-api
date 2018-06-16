@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Plumbok\Annotation\Getter;
+use Plumbok\Annotation\Setter;
 
 /**
  * Class Account
@@ -24,7 +25,8 @@ class Account
     /**
      * @var string
      *
-     * @Getter() @Setter()
+     * @Getter()
+     * @Setter()
      * @ORM\Id()
      * @ORM\Column(type="string")
      * @ORM\GeneratedValue(strategy="UUID")
