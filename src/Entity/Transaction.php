@@ -1,0 +1,60 @@
+<?php
+
+namespace App\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+use Plumbok\Annotation\Getter;
+
+/**
+ * Class TransactionEntity
+ *
+ * @package App\Entity
+ * @ORM\Entity()
+ * @ORM\Table(name="transaction")
+ * @method string getId()
+ * @method void setId(string $id)
+ * @method \App\Entity\AtmCard getAtmCard()
+ * @method void setAtmCard(\App\Entity\AtmCard $atmCard)
+ * @method float getAmount()
+ * @method void setAmount(float $amount)
+ * @method \DateTime getDateAdd()
+ * @method void setDateAdd(\DateTime $dateAdd)
+ */
+class Transaction
+{
+
+    /**
+     * @var string
+     *
+     * @Getter() @Setter()
+     * @ORM\Id()
+     * @ORM\Column(type="string")
+     * @ORM\GeneratedValue(strategy="UUID")
+     */
+    private $id;
+
+    /**
+     * @var AtmCard
+     *
+     * @Getter() @Setter()
+     * @ORM\ManyToOne(targetEntity="AtmCard", nullable=false)
+     */
+    private $atmCard;
+
+    /**
+     * @var float
+     *
+     * @Getter() @Setter()
+     * @ORM\Column(type="decimal", nullable=false, precision=10)
+     */
+    private $amount;
+
+    /**
+     * @var \DateTime
+     *
+     * @Getter() @Setter()
+     * @ORM\Column(type="datetime", nullable=false)
+     */
+    private $dateAdd;
+
+}

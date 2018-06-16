@@ -28,11 +28,19 @@ services:
 
     App\Repository\CustomerRepository:
         factory: 'doctrine.orm.entity_manager:getRepository'
-        arguments: ['App\Entity\CustomerEntity']
+        arguments: ['App\Entity\Customer']
 
     App\Repository\TransactionRepository:
         factory: 'doctrine.orm.entity_manager:getRepository'
-        arguments: ['App\Entity\TransactionEntity']
+        arguments: ['App\Entity\Transaction']
+
+    App\Repository\AtmCardRepository:
+        factory: 'doctrine.orm.entity_manager:getRepository'
+        arguments: ['App\Entity\AtmCard']
+
+    App\Repository\AccountRepository:
+        factory: 'doctrine.orm.entity_manager:getRepository'
+        arguments: ['App\Entity\Account']
 
     dto_converter:
         class: App\Converter\DtoConverter
