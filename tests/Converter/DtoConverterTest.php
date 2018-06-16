@@ -2,9 +2,8 @@
 
 namespace tests\Converter;
 
-include_once '../Mocks/SampleDto.php';
-
 use App\Converter\DtoConverter;
+use App\Kernel;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Tests\TestCase;
 use Symfony\Component\HttpFoundation\Request;
@@ -23,6 +22,9 @@ class DtoConverterTest extends TestCase
      */
     public function setupConverter(): void
     {
+        $kernel = new Kernel('dev', false);
+        include_once $kernel->getRootDir() . '/../tests/Mocks/SampleDto.php';
+
         $this->dtoConverter = new DtoConverter(new \Symfony\Component\HttpKernel\Tests\Logger());
     }
 

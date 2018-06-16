@@ -10,7 +10,7 @@ use Plumbok\Annotation\Setter;
  * Class TransactionEntity
  *
  * @package App\Entity
- * @ORM\Entity()
+ * @ORM\Entity(repositoryClass="App\Repository\TransactionRepository")
  * @ORM\Table(name="transaction")
  * @method string getId()
  * @method void setId(string $id)
