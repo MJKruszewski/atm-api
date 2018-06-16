@@ -5,10 +5,12 @@ namespace App\Controller\Dto;
 
 use Plumbok\Annotation\Getter;
 use Plumbok\Annotation\Setter;
+use Swagger\Annotations as SWG;
 
 /**
  * Class WithdrawDto
  *
+ * @SWG\Definition()
  * @method string getUserId()
  * @method void setUserId(string $userId)
  * @method string getCardNumber()
@@ -21,6 +23,7 @@ final class WithdrawDto
     /**
      * @var string
      *
+     * @SWG\Property()
      * @Getter()
      * @Setter()
      */
@@ -37,6 +40,7 @@ final class WithdrawDto
     /**
      * @var float
      *
+     * @SWG\Property()
      * @Getter()
      * @Setter()
      */

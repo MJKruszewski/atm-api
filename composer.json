@@ -15,7 +15,8 @@
         "symfony/lts": "^4@dev",
         "symfony/monolog-bundle": "^3.3",
         "symfony/orm-pack": "^1.0",
-        "symfony/yaml": "^4.1"
+        "symfony/yaml": "^4.1",
+        "zircote/swagger-php": "^2.0"
     },
     "require-dev": {
         "symfony/phpunit-bridge": "^4.1",
