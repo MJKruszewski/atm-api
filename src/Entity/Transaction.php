@@ -39,7 +39,7 @@ class Transaction
      * @var AtmCard
      *
      * @Getter() @Setter()
-     * @ORM\ManyToOne(targetEntity="AtmCard", nullable=false)
+     * @ORM\ManyToOne(targetEntity="AtmCard")
      */
     private $atmCard;
 

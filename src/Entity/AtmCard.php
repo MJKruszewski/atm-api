@@ -18,6 +18,10 @@ use Plumbok\Annotation\Setter;
  * @method void setCardOwner(\App\Entity\Customer $cardOwner)
  * @method \App\Entity\Account getAccount()
  * @method void setAccount(\App\Entity\Account $account)
+ * @method \DateTime getDateAdd()
+ * @method void setDateAdd(\DateTime $dateAdd)
+ * @method \DateTime getExpirationDate()
+ * @method void setExpirationDate(\DateTime $expirationDate)
  */
 class AtmCard
 {
@@ -51,7 +55,7 @@ class AtmCard
      * @var Account
      *
      * @Getter() @Setter()
-     * @ORM\ManyToOne(targetEntity="Account", nullable=false)
+     * @ORM\ManyToOne(targetEntity="Account")
      */
     private $account;
 

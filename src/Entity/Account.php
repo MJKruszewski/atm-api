@@ -18,6 +18,8 @@ use Plumbok\Annotation\Setter;
  * @method void setAccountNumber(string $accountNumber)
  * @method \App\Entity\Customer getAccountOwner()
  * @method void setAccountOwner(\App\Entity\Customer $accountOwner)
+ * @method \DateTime getDateAdd()
+ * @method void setDateAdd(\DateTime $dateAdd)
  */
 class Account
 {
