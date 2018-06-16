@@ -1,6 +1,6 @@
 <?php
 
-namespace tests\Services;
+namespace Services;
 
 use App\Controller\Dto\WithdrawDto;
 use App\Entity\AtmCard;

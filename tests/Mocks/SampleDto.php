@@ -1,6 +1,6 @@
 <?php
 
-namespace tests\Mocks;
+namespace Mocks;
 
 
 final class SampleDto

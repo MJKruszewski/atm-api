@@ -1,13 +1,13 @@
 <?php
 
-namespace tests\Converter;
+namespace Converter;
 
 use App\Converter\DtoConverter;
 use App\Kernel;
+use Mocks\SampleDto;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Tests\TestCase;
 use Symfony\Component\HttpFoundation\Request;
-use tests\Mocks\SampleDto;
 
 class DtoConverterTest extends TestCase
 {
@@ -109,7 +109,7 @@ class DtoConverterTest extends TestCase
         return [
             [false, null, []],
             [true, null, ['isOptional' => true]],
-            [true, 'tests\Mocks\SampleDto', ['name' => 'sampleName', 'class' => 'tests\Mocks\SampleDto']]
+            [true, 'Mocks\SampleDto', ['name' => 'sampleName', 'class' => 'Mocks\SampleDto']]
         ];
     }
 
@@ -117,12 +117,12 @@ class DtoConverterTest extends TestCase
     {
         return [
             [
-                ['name' => 'sampleName', 'class' => 'tests\Mocks\SampleDto'],
+                ['name' => 'sampleName', 'class' => 'Mocks\SampleDto'],
                 ['id' => 'uuid', 'amount' => 11.11, 'bool' => false, 'number' => 1, 'test' => null, 'broken' => 111],
                 ['id' => 'uuid', 'amount' => 11.11, 'bool' => false, 'number' => 1]
             ],
             [
-                ['name' => 'sampleName', 'class' => 'tests\Mocks\SampleDto'],
+                ['name' => 'sampleName', 'class' => 'Mocks\SampleDto'],
                 ['id' => 'uuid', 'amount' => '10.55', 'bool' => false, 'number' => ' 5555', 'test' => null, 'broken' => 111],
                 ['id' => 'uuid', 'amount' => 10.55, 'bool' => false, 'number' => 5555]
             ],
