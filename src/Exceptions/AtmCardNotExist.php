@@ -3,7 +3,7 @@
 namespace App\Exceptions;
 
 
-class AtmCardNotExist extends \Exception
+class AtmCardNotExist extends ApiException
 {
 
 }

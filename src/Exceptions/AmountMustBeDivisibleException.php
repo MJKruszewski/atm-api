@@ -3,7 +3,7 @@
 namespace App\Exceptions;
 
 
-class AmountMustBeDivisibleException extends \Exception
+class AmountMustBeDivisibleException extends ApiException
 {
 
 }
