@@ -78,14 +78,19 @@ class AccountOperationsServiceTest extends TestCase
     {
         $this->expectException(AmountMustBeDivisibleException::class);
         $this->expectExceptionMessage('Amount must be divisible by 20');
-        $this->expectExceptionCode(Response::HTTP_BAD_REQUEST);
 
         $dto = new WithdrawDto();
         $dto->setAmount($amount);
         $dto->setUserId("");
         $dto->setCardNumber("");
-        $this->service->withdrawFromAccount($dto);
+        try {
+            $this->service->withdrawFromAccount($dto);
+        } catch (AmountMustBeDivisibleException $e) {
+            $this->assertEquals(Response::HTTP_BAD_REQUEST, $e->getHttpStatusCode());
+            throw $e;
+        }
     }
+
 
     /**
      * @dataProvider divisableProvider
@@ -99,13 +104,17 @@ class AccountOperationsServiceTest extends TestCase
     {
         $this->expectException(AtmCardNotExist::class);
         $this->expectExceptionMessage('ATM card does not exists');
-        $this->expectExceptionCode(Response::HTTP_NOT_FOUND);
 
         $dto = new WithdrawDto();
         $dto->setAmount($amount);
         $dto->setUserId("");
         $dto->setCardNumber("");
-        $this->service->withdrawFromAccount($dto);
+        try {
+            $this->service->withdrawFromAccount($dto);
+        } catch (AtmCardNotExist $e) {
+            $this->assertEquals(Response::HTTP_NOT_FOUND, $e->getHttpStatusCode());
+            throw $e;
+        }
     }
 
     /**

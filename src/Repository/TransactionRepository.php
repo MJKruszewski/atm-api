@@ -18,16 +18,17 @@ class TransactionRepository extends AbstractRepository
      * @return mixed
      * @throws \Doctrine\DBAL\DBALException
      */
-    public function getAccountBalance(Account $account)
+    public function getAccountBalance(Account $account): float
     {
         $query = $this
             ->getEntityManager()
             ->getConnection()
-            ->prepare('SELECT account_balance(:account_id::VARCHAR);');
+            ->prepare('SELECT account_balance(:account_id) as balance');
 
-        $query->bindValue(':account_id', $account->getId());
-        $query->execute();
-        return $query->fetch();
+        $query->execute([
+            'account_id' => $account->getId()
+        ]);
+        return (float)$query->fetch()['balance'] ?? 0;
     }
 
     /**
@@ -41,12 +42,13 @@ class TransactionRepository extends AbstractRepository
         $query = $this
             ->getEntityManager()
             ->getConnection()
-            ->prepare('SELECT withdraw(:account_id::VARCHAR, :atm_card_id::VARCHAR, :withdraw_amount::DECIMAL,);');
+            ->prepare('SELECT withdraw(:account_id, :atm_card_id, :withdraw_amount);');
 
-        $query->bindValue(':account_id', $atmCard->getAccount()->getId());
-        $query->bindValue(':atm_card_id', $atmCard->getId());
-        $query->bindValue(':withdraw_amount', $amount);
-        $query->execute();
+        $query->execute([
+            'account_id' => $atmCard->getAccount()->getId(),
+            'atm_card_id' => $atmCard->getId(),
+            'withdraw_amount' => $amount,
+        ]);
         return $query->fetch();
     }
 

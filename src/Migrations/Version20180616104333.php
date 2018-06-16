@@ -33,7 +33,7 @@ BEGIN
 		SIGNAL SQLSTATE \'45002\' SET MESSAGE_TEXT = \'Wrong account for atm card\';
     END IF;
     
-    INSERT INTO atm.transaction (id, atm_card_id, amount, date_add) VALUES (UUID(), atm_card_id, account_id, -withdraw_amount, NOW());
+    INSERT INTO atm.transaction (id, atm_card_id, account_id, amount, date_add) VALUES (UUID(), atm_card_id, account_id, -withdraw_amount, CURDATE());
 
 	RETURN TRUE;
 END;

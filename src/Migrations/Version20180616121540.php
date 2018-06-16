@@ -18,7 +18,7 @@ CREATE OR REPLACE TRIGGER balance_check
 	FOR EACH ROW
 BEGIN
 	DECLARE balance DECIMAL;
-    SELECT atm.account_balance(account_id) INTO balance;
+    SELECT atm.account_balance(NEW.account_id) INTO balance;
 
     IF (balance + NEW.amount < 0) THEN
 		SIGNAL SQLSTATE \'45000\' SET MESSAGE_TEXT = \'Insufficient funds\';
