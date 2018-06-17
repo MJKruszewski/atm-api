@@ -3,6 +3,7 @@
 namespace App\Services;
 
 
+use App\Controller\Dto\DepositDto;
 use App\Controller\Dto\WithdrawDto;
 use App\Entity\AtmCard;
 use App\Exceptions\AmountMustBeDivisibleException;
@@ -11,7 +12,7 @@ use App\Repository\AtmCardRepository;
 use App\Repository\TransactionRepository;
 use Symfony\Component\HttpFoundation\Response;
 
-final class AccountOperationsService
+final class AccountOperationsService implements AccountWithdrawInterface, AccountDepositInterface
 {
 
     /**
@@ -57,6 +58,14 @@ final class AccountOperationsService
         }
 
         $this->transactionRepository->withdrawFromAccount($atmCard, $withdrawDto->getAmount());
+    }
+
+    /**
+     * @param DepositDto $depositDto
+     */
+    public function depositOnAccount(DepositDto $depositDto): void
+    {
+
     }
 
 }

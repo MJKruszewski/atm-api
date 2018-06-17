@@ -10,8 +10,11 @@ use App\Repository\AccountRepository;
 use App\Repository\TransactionRepository;
 use Symfony\Component\HttpFoundation\Response;
 
-final class AccountBalanceService
+final class AccountBalanceService implements AccountBalanceInterface
 {
+
+    const CACHE_LIFETIME = 900;
+
     /**
      * @var AccountRepository
      */
@@ -21,16 +24,22 @@ final class AccountBalanceService
      * @var TransactionRepository
      */
     private $transactionRepository;
+    /**
+     * @var RedisInterface
+     */
+    private $redis;
 
     /**
      * AccountBalanceService constructor.
      * @param AccountRepository $accountRepository
      * @param TransactionRepository $transactionRepository
+     * @param RedisInterface $redis
      */
-    public function __construct(AccountRepository $accountRepository, TransactionRepository $transactionRepository)
+    public function __construct(AccountRepository $accountRepository, TransactionRepository $transactionRepository, RedisInterface $redis)
     {
         $this->accountRepository = $accountRepository;
         $this->transactionRepository = $transactionRepository;
+        $this->redis = $redis;
     }
 
     /**
@@ -41,6 +50,13 @@ final class AccountBalanceService
      */
     public function calculateAccountBalance(BalanceDto $balanceDto): float
     {
+        $cacheKey = self::balanceCacheKey($balanceDto->getUserId(), $balanceDto->getAccountNumber());
+        $cache = $this->redis->readCache($cacheKey);
+
+        if ($cache) {
+            return (float)$cache;
+        }
+
         /** @var Account $account */
         $account = $this->accountRepository->findOneBy([
             'accountNumber' => $balanceDto->getAccountNumber(),
@@ -51,7 +67,20 @@ final class AccountBalanceService
             throw new AccountNotExists('Account does not exists', Response::HTTP_NOT_FOUND);
         }
 
-        return $this->transactionRepository->getAccountBalance($account);
+        $balance = $this->transactionRepository->getAccountBalance($account);
+        $this->redis->addCache($cacheKey, $balance, self::CACHE_LIFETIME);
+
+        return $balance;
+    }
+
+    /**
+     * @param string $userId
+     * @param string $accountNumber
+     * @return string
+     */
+    public static function balanceCacheKey(string $userId, string $accountNumber): string
+    {
+        return 'balance_' . $userId . '_' . $accountNumber;
     }
 
 }

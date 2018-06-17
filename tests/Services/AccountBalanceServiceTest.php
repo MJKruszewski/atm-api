@@ -9,6 +9,7 @@ use App\Kernel;
 use App\Repository\AccountRepository;
 use App\Repository\TransactionRepository;
 use App\Services\AccountBalanceService;
+use App\Services\RedisInterface;
 use PHPUnit\Framework\MockObject\MockObject;
 use Symfony\Bundle\FrameworkBundle\Tests\TestCase;
 use Symfony\Component\HttpFoundation\Response;
@@ -27,6 +28,10 @@ class AccountBalanceServiceTest extends TestCase
      * @var TransactionRepository|MockObject
      */
     private $transactionRepository;
+    /**
+     * @var RedisInterface|MockObject
+     */
+    private $redis;
 
     /**
      * @before
@@ -38,10 +43,12 @@ class AccountBalanceServiceTest extends TestCase
 
         $this->accountRepository = $this->createMock(AccountRepository::class);
         $this->transactionRepository = $this->createMock(TransactionRepository::class);
+        $this->redis = $this->createMock(RedisInterface::class);
 
         $this->service = new AccountBalanceService(
             $this->accountRepository,
-            $this->transactionRepository
+            $this->transactionRepository,
+            $this->redis
         );
     }
 
@@ -82,5 +89,18 @@ class AccountBalanceServiceTest extends TestCase
         $balance = $this->service->calculateAccountBalance($dto);
 
         $this->assertEquals(500, $balance);
+    }
+
+    public function testRedisCache()
+    {
+        $dto = new BalanceDto();
+        $dto->setUserId('uuid');
+        $dto->setAccountNumber('111');
+
+        $this->redis->method('readCache')->willReturn(400);
+
+        $balance = $this->service->calculateAccountBalance($dto);
+
+        $this->assertEquals(400, $balance);
     }
 }
