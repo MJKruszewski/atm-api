@@ -13,3 +13,5 @@
 /phpunit.xml
 phpunit.xml
 ###< symfony/phpunit-bridge ###
+
+swagger-doc/*
