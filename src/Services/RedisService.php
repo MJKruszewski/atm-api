@@ -3,6 +3,7 @@
 namespace App\Services;
 
 
+use App\Services\Interfaces\RedisInterface;
 use SymfonyBundles\RedisBundle\Redis\ClientInterface;
 
 final class RedisService implements RedisInterface

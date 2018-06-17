@@ -8,6 +8,8 @@ use App\Entity\Account;
 use App\Exceptions\AccountNotExists;
 use App\Repository\AccountRepository;
 use App\Repository\TransactionRepository;
+use App\Services\Interfaces\AccountBalanceInterface;
+use App\Services\Interfaces\RedisInterface;
 use Symfony\Component\HttpFoundation\Response;
 
 final class AccountBalanceService implements AccountBalanceInterface

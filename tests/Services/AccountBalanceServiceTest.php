@@ -9,7 +9,7 @@ use App\Kernel;
 use App\Repository\AccountRepository;
 use App\Repository\TransactionRepository;
 use App\Services\AccountBalanceService;
-use App\Services\RedisInterface;
+use App\Services\Interfaces\RedisInterface;
 use PHPUnit\Framework\MockObject\MockObject;
 use Symfony\Bundle\FrameworkBundle\Tests\TestCase;
 use Symfony\Component\HttpFoundation\Response;

@@ -10,6 +10,8 @@ use App\Exceptions\AmountMustBeDivisibleException;
 use App\Exceptions\AtmCardNotExist;
 use App\Repository\AtmCardRepository;
 use App\Repository\TransactionRepository;
+use App\Services\Interfaces\AccountDepositInterface;
+use App\Services\Interfaces\AccountWithdrawInterface;
 use Symfony\Component\HttpFoundation\Response;
 
 final class AccountOperationsService implements AccountWithdrawInterface, AccountDepositInterface
