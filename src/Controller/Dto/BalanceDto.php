@@ -22,7 +22,7 @@ final class BalanceDto
     /**
      * @var string
      *
-     * @SWG\Property()
+     * @SWG\Property(required=true)
      * @Getter()
      * @Setter()
      */
@@ -31,7 +31,7 @@ final class BalanceDto
     /**
      * @var string
      *
-     * @SWG\Property()
+     * @SWG\Property(required=true)
      * @Getter()
      * @Setter()
      */

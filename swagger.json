@@ -1,0 +1,112 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "ATM Api",
+    "description": "Api docs provided for ATM Api",
+    "version": "0.1"
+  },
+  "basePath": "/v1",
+  "paths": {
+    "/account/balance/{userId}/{accountNumber}": {
+      "get": {
+        "tags": [
+          "account"
+        ],
+        "summary": "Get account balance",
+        "operationId": "getBalance",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "Customer UUID",
+            "type": "string"
+          },
+          {
+            "name": "accountNumber",
+            "in": "path",
+            "description": "User account number",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/BalanceResponseDto"
+            }
+          }
+        }
+      }
+    },
+    "/account/withdraw": {
+      "post": {
+        "tags": [
+          "account"
+        ],
+        "summary": "Withdraw from account",
+        "description": "Method allows user to withdraw from defined account by atm card",
+        "operationId": "postWithdraw",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/WithdrawDto"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No content"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "BalanceDto": {
+      "properties": {
+        "userId": {
+          "required": true,
+          "type": "string"
+        },
+        "accountNumber": {
+          "required": true,
+          "type": "string"
+        }
+      }
+    },
+    "BalanceResponseDto": {
+      "properties": {
+        "balance": {
+          "type": "number",
+          "format": "float"
+        }
+      }
+    },
+    "WithdrawDto": {
+      "properties": {
+        "userId": {
+          "type": "string"
+        },
+        "amount": {
+          "type": "number",
+          "format": "float"
+        }
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "account",
+      "description": "Account Operations"
+    }
+  ]
+}

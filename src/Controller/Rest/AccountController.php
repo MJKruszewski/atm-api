@@ -3,7 +3,9 @@
 namespace App\Controller\Rest;
 
 use App\Controller\Dto\BalanceDto;
+use App\Controller\Dto\Responses\BalanceResponseDto;
 use App\Controller\Dto\WithdrawDto;
+use App\Controller\Rest\Docs\AccountInterface;
 use App\Exceptions\ApiException;
 use App\Services\AccountBalanceService;
 use App\Services\AccountOperationsService;
@@ -19,7 +21,7 @@ use Symfony\Component\HttpFoundation\Response;
  *
  * @Rest\Route(path="/v1/account")
  */
-final class AccountController extends FOSRestController
+final class AccountController extends FOSRestController implements AccountInterface
 {
     /**
      * @var AccountOperationsService
@@ -46,17 +48,17 @@ final class AccountController extends FOSRestController
      * @param BalanceDto $balanceDto
      * @return JsonResponse
      *
-     * @ParamConverter(name="userDto", class="App\Controller\Dto\UserDto", converter="dto_converter")
+     * @ParamConverter(name="balanceDto", class="App\Controller\Dto\BalanceDto", converter="dto_converter")
      * @Rest\Get()
-     * @Rest\Route(path="/balance")
+     * @Rest\Route(path="/balance/{userId}/{accountNumber}")
      */
     public function getBalance(BalanceDto $balanceDto): JsonResponse
     {
-        $response = new JsonResponse();
+        $response = new BalanceResponseDto();
         try {
             $balance = $this->accountBalanceService->calculateAccountBalance($balanceDto);
             $response->setStatusCode(Response::HTTP_OK);
-            $response->setData(['balance' => $balance]);
+            $response->setBalance($balance);
         } catch (ApiException | \Exception $e) {
             $response = ApiException::handleApiException($e, $response);
         }
