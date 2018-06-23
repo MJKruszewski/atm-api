@@ -9,7 +9,9 @@ use Swagger\Annotations as SWG;
 /**
  * Class BalanceDto
  *
- * @SWG\Definition()
+ * @SWG\Definition(
+ *     required=""
+ * )
  * @package App\Controller\Dto
  * @method string getUserId()
  * @method void setUserId(string $userId)
