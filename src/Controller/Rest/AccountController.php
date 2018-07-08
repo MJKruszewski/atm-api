@@ -10,6 +10,7 @@ use App\Controller\Rest\Docs\AccountInterface;
 use App\Exceptions\ApiException;
 use App\Services\AccountOperationsService;
 use App\Services\Interfaces\AccountBalanceInterface;
+use Doctrine\DBAL\DBALException;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\Controller\FOSRestController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
@@ -80,7 +81,7 @@ final class AccountController extends FOSRestController implements AccountInterf
             $this->accountOperationsService->withdrawFromAccount($withdrawDto);
             $response->setStatusCode(Response::HTTP_NO_CONTENT);
             $response->setContent(null);
-        } catch (ApiException | \Exception $e) {
+        } catch (ApiException | DBALException | \Exception $e) {
             $response = ApiException::handleApiException($e, $response);
         }
 

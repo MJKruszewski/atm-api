@@ -17,7 +17,7 @@ class Kernel extends BaseKernel
     const CONFIG_EXTS = '.{php,xml,yaml,yml}';
 
     public function getPlumbokCacheDir() {
-        return $this->getProjectDir().'/var/cache/plumbok';
+        return $this->getCacheDir() . '/plumbok';
     }
 
     public function getCacheDir()

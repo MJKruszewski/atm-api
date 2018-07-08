@@ -1,0 +1,7 @@
+plumbok:
+    dir: '%kernel.cache_dir%/plumbok'
+    namespaces: [
+      'App\Entity',
+      'App\Exceptions',
+      'App\Controller\Dto'
+      ]

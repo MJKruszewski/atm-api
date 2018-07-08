@@ -86,6 +86,12 @@
             "ref": "fe60ce509ef04a3f40da96e3979bc8d9b13b2372"
         }
     },
+    "mjkruszewski/plumbok": {
+        "version": "1.0"
+    },
+    "mjkruszewski/plumbok-bundle": {
+        "version": "dev-master"
+    },
     "monolog/monolog": {
         "version": "1.23.0"
     },
